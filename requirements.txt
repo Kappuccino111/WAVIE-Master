@@ -24,7 +24,7 @@ torchtoolbox
 
 # Wavelet-CLIP extras
 PyWavelets
-PyTorchWavelets
+pytorch-wavelets
 kornia
 filterpy
 simplejson
