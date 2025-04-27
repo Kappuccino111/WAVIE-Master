@@ -1,6 +1,6 @@
 # WAVIE-Master
 
-**WAVIE** is a lightweight, highly generalizable deepfake detector that merges the strengths of two state-of-the-art pipelines—**RINE** and **Wavelet-CLIP**—to achieve robust performance across diverse GAN and diffusion-based generative models.
+**WAVIE : Wavelet Augmented Vision Intermediate Encodings** is a lightweight, highly generalizable deepfake detector that merges the strengths of two state-of-the-art pipelines—**RINE** and **Wavelet-CLIP**—to achieve robust performance across diverse GAN and diffusion-based generative models.
 
 ## Table of Contents
 
