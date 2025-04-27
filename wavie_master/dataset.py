@@ -7,8 +7,8 @@ import random
 from utils import list_images
 
 # Real image = 0
-# Fake image = 0
-class TrainingDataset(Dataset):
+# Fake image = 1
+class DeepfakeDataset(Dataset):
     def __init__(self, realLoc, fakeLoc ):
         self.realLoc = realLoc
         self.realImages = list_images(realLoc,0)
@@ -19,7 +19,7 @@ class TrainingDataset(Dataset):
     def __len__(self):
         return len(os.listdir(self.datasetLoc))
     
-    def __getitem__(self, index):
+    def __getitem__(self, idx):
         if torch.is_tensor(idx):
             idx = idx.tolist()
 
