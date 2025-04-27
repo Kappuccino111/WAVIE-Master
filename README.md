@@ -111,7 +111,7 @@ WAVIE's blend of RINE’s multi-layer CLS fusion and Wavelet-CLIP’s low-band r
 ## Repository Structure (Tentative)
 
 ```
-FusionDetector/
+WAVIE-Master/
 ├── README.md               # (this file)
 ├── requirements.txt        # Python dependencies
 ├── train.py                # Single-GPU mixed-precision training script
