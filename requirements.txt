@@ -1,0 +1,48 @@
+# Core numerical & vision
+numpy
+pandas
+Pillow
+opencv-python
+scipy
+scikit-image
+scikit-learn
+tqdm
+
+# PyTorch & CUDA
+torch+cu113
+torchvision+cu113
+torchaudio
+
+# CLIP & Others
+git+https://github.com/openai/CLIP.git#egg=clip
+timm
+einops
+transformers>=4.20.0         # for any text‐encoder or tokenizer utilities
+
+# RINE-style contrastive / losses
+torchtoolbox
+# or you can swap in your own SupCon implementation
+
+# Wavelet-CLIP extras
+PyWavelets
+kornia
+filterpy
+simplejson
+
+# Augmentations & image I/O
+albumentations
+imgaug
+imageio
+imutils
+
+# Logging & visualization
+tensorboard
+
+# Pretrained helpers
+efficientnet-pytorch
+segmentation-models-pytorch
+pytorchvideo
+loralib
+
+# YAML configs
+PyYAML>=6.0
