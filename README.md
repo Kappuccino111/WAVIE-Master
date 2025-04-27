@@ -108,3 +108,18 @@ WAVIE's blend of RINE’s multi-layer CLS fusion and Wavelet-CLIP’s low-band r
 4. **Frozen backbone, tiny heads**
    * You train only a few million parameters in under an hour on one GPU. That makes it nearly impossible to over-specialize on one dataset or model family.
 
+## Repository Structure (Tentative)
+
+```
+FusionDetector/
+├── README.md               # (this file)
+├── requirements.txt        # Python dependencies
+├── train.py                # Single-GPU mixed-precision training script
+├── test.py                 # Inference & evaluation script
+└── wavie_master/           # Python package
+    ├── __init__.py         # Package initialization
+    ├── model.py            # WAVIE model definition
+    ├── losses.py           # BCE + SupConLoss definitions
+    ├── dataset.py          # Real/fake image dataset loader
+    └── utils.py            # Checkpoint, metrics, logging utilities
+```
