@@ -19,13 +19,15 @@ class DeepfakeDataset(Dataset):
         random.shuffle(self.images)
         start=0, end=1
         if split=="train":
-            end=0.6
-        elif split=="val":
-            start=0.6
+            start=0
             end=0.8
-        else:
+        elif split=="val":
             start=0.8
-            
+            end=1
+        elif split=="test":
+            start=0
+            end=1
+
         total=len(self.images)
         self.transforms = transforms
         self.images=self.images[int(total*start):int(total*end)]
