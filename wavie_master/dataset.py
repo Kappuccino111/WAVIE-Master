@@ -9,12 +9,26 @@ from utils import list_images
 # Real image = 0
 # Fake image = 1
 class DeepfakeDataset(Dataset):
-    def __init__(self, realLoc, fakeLoc ):
+    def __init__(self, split, realLoc, fakeLoc,seed=42, transforms=None ):
         self.realLoc = realLoc
         self.realImages = list_images(realLoc,0)
         self.fakeLoc = fakeLoc
         self.fakeImages = list_images(fakeLoc,1)
         self.images=self.realImages+self.fakeImages
+        random.seed(seed)
+        random.shuffle(self.images)
+        start=0, end=1
+        if split=="train":
+            end=0.6
+        elif split=="val":
+            start=0.6
+            end=0.8
+        else:
+            start=0.8
+            
+        total=len(self.images)
+        self.transforms = transforms
+        self.images=self.images[int(total*start):int(total*end)]
 
     def __len__(self):
         return len(os.listdir(self.datasetLoc))
