@@ -139,7 +139,9 @@ class WavieModel(nn.Module):
 
         # Stack features from all layers: shape [N, L, embed_dim]
         g = torch.stack(cls_tokens, dim=1)
-
+        
+        # FIXME check once again
+        
         # 3) per-layer projection        ← proj1
         g_proj = self.proj1(g)  # [N, L, proj_dim]
 
