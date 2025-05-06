@@ -1,1 +1,13 @@
 checkpoints/*
+data/
+
+# Ignore cpython files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+*.egg
+*.whl
+*.so

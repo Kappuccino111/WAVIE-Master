@@ -43,8 +43,8 @@ def main():
     # 1) Data Loading: We do the preprocessing of CLIP to normalize/resize the images after transforms from the dataset.py file
     transform = model.clip_preprocess
 
-    train_ds = DeepfakeDataset(realLoc=REAL_DIR,fakeLoc=FAKE_DIR,split = "train", transform=transform)
-    val_ds = DeepfakeDataset(realLoc=REAL_DIR,fakeLoc=FAKE_DIR,split = "val", transform=transform)
+    train_ds = DeepfakeDataset(split = "train", transform=transform)
+    val_ds = DeepfakeDataset(split = "val", transform=transform)
 
     train_loader = DataLoader(train_ds, batch_size=BATCH_SIZE, shuffle=True, num_workers=4, pin_memory=True)
     val_loader = DataLoader(val_ds, batch_size=BATCH_SIZE, shuffle=False, num_workers=4, pin_memory=True)

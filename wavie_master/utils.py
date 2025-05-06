@@ -154,3 +154,10 @@ def compute_accuracy(logits, labels):
     correct = (preds.view(-1) == labels.view(-1)).sum().item()
     total = labels.numel()
     return correct / total if total > 0 else 0.0
+
+def readImages(file: str, label: int):
+    with open(file, "r") as f:
+        l=[]
+        for i in f.readlines():
+            l.append(tuple(i, label))
+        return l
