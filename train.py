@@ -141,7 +141,7 @@ def main():
                 best_epoch   = epoch
                 save_checkpoint(
                     model, optimizer, epoch,
-                    os.path.join(CHECKPOINT_DIR, "best_model.pth")
+                    os.path.join(CHECKPOINT_DIR, f"best_model_{PROJ_DIM}_{N_PROJ}.pth")
                 )
 
             # 9) Epoch summary and others
