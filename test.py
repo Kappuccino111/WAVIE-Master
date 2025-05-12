@@ -12,6 +12,7 @@ from wavie_master.dataset import DeepfakeDataset
 from wavie_master.model import WavieModel
 from train import PROJ_DIM, N_PROJ
 from wavie_master.utils import load_checkpoint
+from pathlib import Path
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Hyperparameters & Dataset loaders
@@ -19,22 +20,24 @@ from wavie_master.utils import load_checkpoint
 
 REAL_DIR        = "./data/real"
 FAKE_DIR        = "./data/fake"
-CHECKPOINT_PATH = "./checkpoints/best_model_{N_PROJ}_{PROJ_DIM}.pth"
+CHECKPOINT_PATH = "./checkpoints/best_model_{PROJ_DIM}_{N_PROJ}.pth"
 DEVICE          = "cuda" if torch.cuda.is_available() else "cpu"
 BATCH_SIZE      = 128
 
 def main(loc):
     # 0) Build model and load weights
     model = WavieModel(proj_dim=PROJ_DIM, nproj=N_PROJ, device=DEVICE)
-    load_checkpoint(model, CHECKPOINT_PATH)
+    load_checkpoint(model,
+                path=CHECKPOINT_PATH.format(N_PROJ=N_PROJ, PROJ_DIM=PROJ_DIM),
+                device=DEVICE)
     model.eval()
 
     # 1) Data loading (use same CLIP preprocessing)
     transform  = model.clip_preprocess
-    test_ds    = DeepfakeDataset(realLoc=REAL_DIR,
-                                 fakeLoc=FAKE_DIR,
+    test_ds    = DeepfakeDataset(realLoc=Path(REAL_DIR),
+                                 fakeLoc=Path(FAKE_DIR),
                                  split="test",
-                                 transform=transform)
+                                 transforms=transform)
     test_loader = DataLoader(test_ds,
                              batch_size=BATCH_SIZE,
                              shuffle=False,
@@ -90,4 +93,4 @@ def main(loc):
         pass
 
 if __name__ == "__main__":
-    main()
+    main("data")

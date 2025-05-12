@@ -44,7 +44,8 @@ def saveFakeData(data, base_folder):
         base_folder=os.path.join(os.getcwd(), base_folder)
     
     with open(os.path.join(base_folder, "info$na.txt"),"w") as f:
-        f.writelines(data)
+        for i in data:
+            f.write(f"{i}\n")
     
     with open("/home/teaching/Desktop/WAVIE-Master/wavie_master/fakeRatio.txt", "r") as f:
         file_data = f.read()

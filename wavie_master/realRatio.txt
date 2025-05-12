@@ -1,2 +1,2 @@
-/home/teaching/Desktop/WAVIE-Master/data/real/face
-/home/teaching/Desktop/WAVIE-Master/data/real/general
+/home/teaching/Desktop/WAVIE-Master/data/real/face 1000
+/home/teaching/Desktop/WAVIE-Master/data/real/general 1000

@@ -71,15 +71,18 @@ class WavieModel(nn.Module):
         # Register hooks to get intermediate layer outputs
         self.hooks = [
             Hook(name, module)
-            for name, module in self.clip.visual.named_modules()
+            for name, module in self.clip_model.visual.named_modules()
             if "ln_2" in name
         ]
 
         self.alpha = nn.Parameter(torch.randn([1, len(self.hooks), proj_dim]))
 
         proj1_layers = [nn.Dropout(p=0.1)]
+
+        base_dim = self.clip_model.visual.proj.shape[0]
+
         for i in range(nproj):
-            in_dim = proj_dim if i > 0 else self.clip_model.visual.width
+            in_dim = proj_dim if i > 0 else base_dim
             proj1_layers += [
                 nn.Linear(in_dim, proj_dim),
                 nn.ReLU(inplace=True),
@@ -119,6 +122,7 @@ class WavieModel(nn.Module):
         """
 
         x = x.to(self.device)
+        N = x.size(0)
 
         # 1) CLIP forward + hooks
         with torch.no_grad():
@@ -126,22 +130,31 @@ class WavieModel(nn.Module):
 
         # 2) collect CLS tokens → [N, L, embed_dim]
         cls_tokens = []
+
         for h in self.hooks:
             out = h.output
-            if out is None:
+            # only keep 3-D activations
+            if out is None or out.dim() != 3:
                 continue
-            if out.dim() == 3:
-                cls_tokens.append(out[:, 0, :])  # CLS token (assuming index 0)
+
+            if out.shape[0] == N:
+                # case A: straightforward
+                token = out[:, 0, :]      # [batch, dim]
+            elif out.shape[1] == N:
+                # case B: swap axes then grab
+                token = out[0, :, :]      # [batch, dim]
             else:
-                cls_tokens.append(out)          # Already a [N, dim] output
+                # something unexpected—skip
+                continue
+
+            cls_tokens.append(token)
+
         if len(cls_tokens) == 0:
             raise RuntimeError("No features captured from CLIP hooks.")
 
         # Stack features from all layers: shape [N, L, embed_dim]
         g = torch.stack(cls_tokens, dim=1)
-        
-        # FIXME check once again
-        
+
         # 3) per-layer projection        ← proj1
         g_proj = self.proj1(g)  # [N, L, proj_dim]
 
