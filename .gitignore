@@ -1,5 +1,6 @@
 checkpoints/*
 data/
+test_data/
 
 # Ignore cpython files
 __pycache__/

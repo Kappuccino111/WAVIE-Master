@@ -18,8 +18,8 @@ from pathlib import Path
 # Hyperparameters & Dataset loaders
 # ──────────────────────────────────────────────────────────────────────────────
 
-REAL_DIR        = "./data/real"
-FAKE_DIR        = "./data/fake"
+REAL_DIR        = "./test_data/real"
+FAKE_DIR        = "./test_data/fake"
 CHECKPOINT_PATH = "./checkpoints/best_model_{PROJ_DIM}_{N_PROJ}.pth"
 DEVICE          = "cuda" if torch.cuda.is_available() else "cpu"
 BATCH_SIZE      = 128
@@ -93,4 +93,4 @@ def main(loc):
         pass
 
 if __name__ == "__main__":
-    main("data")
+    main("test_data")
