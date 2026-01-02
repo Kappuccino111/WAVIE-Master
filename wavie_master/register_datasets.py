@@ -21,7 +21,7 @@ def list_images(base_folder: Path):
     return lst
 
 
-def saveRealData(data, base_folder):
+def saveRealData(data, base_folder, dataset):
     if "/home/teaching" in str(base_folder):
         pass
     else:
@@ -31,13 +31,13 @@ def saveRealData(data, base_folder):
         for i in data:
             f.write(f"{i}\n")
     
-    with open("/home/teaching/Desktop/WAVIE-Master/wavie_master/realRatio.txt", "r") as f:
+    with open(f"/home/teaching/data/WAVIE-Master/wavie_master/{dataset}/realRatio.txt", "r") as f:
         file_data = f.read()
     if str(base_folder) not in file_data:
-        with open("/home/teaching/Desktop/WAVIE-Master/wavie_master/realRatio.txt", "a") as f:
-            f.write(f"{base_folder}\n")
+        with open(f"/home/teaching/data/WAVIE-Master/wavie_master/{dataset}/realRatio.txt", "a") as f:
+            f.write(f"{base_folder} {len(data)} \n")
 
-def saveFakeData(data, base_folder):
+def saveFakeData(data, base_folder, dataset):
     if "/home/teaching" in str(base_folder):
         pass
     else:
@@ -47,14 +47,15 @@ def saveFakeData(data, base_folder):
         for i in data:
             f.write(f"{i}\n")
     
-    with open("/home/teaching/Desktop/WAVIE-Master/wavie_master/fakeRatio.txt", "r") as f:
+    with open(f"/home/teaching/data/WAVIE-Master/wavie_master/{dataset}/fakeRatio.txt", "r") as f:
         file_data = f.read()
     if str(base_folder) not in file_data:
-        with open("/home/teaching/Desktop/WAVIE-Master/wavie_master/fakeRatio.txt", "a") as f:
-            f.write(f"{base_folder}\n")
+        with open(f"/home/teaching/data/WAVIE-Master/wavie_master/{dataset}/fakeRatio.txt", "a") as f:
+            f.write(f"{base_folder} {len(data)} \n")
     
 if __name__=="__main__":
     loc = Path(sys.argv[1])
+    dataset = sys.argv[3]
     if "/home/teaching" in str(loc):
         pass
     else:
@@ -63,8 +64,8 @@ if __name__=="__main__":
     images = list_images(loc)
 
     if str(image_type)=="0":
-        saveRealData(images, loc)
+        saveRealData(images, loc, dataset)
     elif str(image_type)=="1":
-        saveFakeData(images, loc)
+        saveFakeData(images, loc, dataset)
 
     

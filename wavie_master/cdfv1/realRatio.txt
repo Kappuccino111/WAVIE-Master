@@ -1,0 +1,2 @@
+/home/teaching/data/WAVIE-Master/CDFv1/Celeb-real-images-cropped 1976 
+/home/teaching/data/WAVIE-Master/CDFv1/YouTube-real-images-cropped 3670 

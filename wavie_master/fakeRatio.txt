@@ -1,2 +1,0 @@
-/home/teaching/Desktop/WAVIE-Master/data/fake/general 1000
-/home/teaching/Desktop/WAVIE-Master/data/fake/face 1000

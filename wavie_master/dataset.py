@@ -10,7 +10,7 @@ from .utils import list_images, readImages
 # Fake image = 1
 class DeepfakeDataset(Dataset):
 
-    def __init__(self, split, realLoc=None, fakeLoc=None, seed=42, transforms=None):
+    def __init__(self, split, realLoc=None, fakeLoc=None, seed=42, transforms=None, data=""):
         import os, random
         from .utils import list_images
 
@@ -26,17 +26,19 @@ class DeepfakeDataset(Dataset):
             # ratio-file mode
             real_images, fake_images = [], []
             # load directories + ratios
-            base = "/home/teaching/Desktop/WAVIE-Master/wavie_master"
+            base = f"/home/teaching/data/WAVIE-Master/wavie_master/{data}"
             real_dirs = []
             with open(os.path.join(base, "realRatio.txt"), "r") as f:
                 for line in f:
-                    parts = line.strip().split()
-                    real_dirs.append((parts[0], float(parts[1]) if len(parts) > 1 else 1.0))
+                    if line.strip():
+                        parts = line.strip().split()
+                        real_dirs.append((parts[0], float(parts[-1]) if len(parts) > 2 else 1.0))
             fake_dirs = []
             with open(os.path.join(base, "fakeRatio.txt"), "r") as f:
                 for line in f:
-                    parts = line.strip().split()
-                    fake_dirs.append((parts[0], float(parts[1]) if len(parts) > 1 else 1.0))
+                    if line.strip():
+                        parts = line.strip().split()
+                        fake_dirs.append((parts[0], float(parts[-1]) if len(parts) > 2 else 1.0))
 
             # sample real
             for directory, ratio in real_dirs:
